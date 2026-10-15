@@ -5,14 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <Button
-        android:id="@+id/btnLanzarTostada"
+        android:id="@+id/toastButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lanzar tostada"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <Button
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -20,5 +23,15 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:text="Lanzar nueva actividad"/>
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/toastButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mermelada no incluida"
+
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
