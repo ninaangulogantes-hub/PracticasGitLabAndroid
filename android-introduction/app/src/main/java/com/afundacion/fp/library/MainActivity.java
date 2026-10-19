@@ -3,6 +3,7 @@ package com.afundacion.fp.library;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private Context context = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -29,6 +31,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "Arrancando otra actividad...", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        otherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Arrancando otra actividad...", Toast.LENGTH_LONG).show();
+                Intent myIntent = new Intent(context, MonstersActivity.class);
+                context.startActivity(myIntent);
             }
         }
         );
