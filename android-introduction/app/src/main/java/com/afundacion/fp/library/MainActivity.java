@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private Context context = this;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Toast.makeText(context, "Hasta luego, main Activity!", Toast.LENGTH_LONG).show();
+    }
 }
