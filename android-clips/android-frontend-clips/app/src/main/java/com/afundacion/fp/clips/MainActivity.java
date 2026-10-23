@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            Toast.makeText(context,"Response OK: " + response.getString("status"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context,"Response OK:" + response.getString("status"), Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
