@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue queue;
     private ConstraintLayout mainLayout;
     private ProgressBar progressBar;
+    private ClipsList clips;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,14 +70,22 @@ public class MainActivity extends AppCompatActivity {
         );
         this.queue.add(request);
     }
+    public void setClips(ClipsList clips) {
+        this.clips = clips;
+    }
+
+    public ClipsList getClipsForTest() {
+        return clips;
+    }
     private void requestClips() {
         progressBar.setVisibility(View.VISIBLE);
 
-        Response.Listener x = new Response.Listener() {
+        Response.Listener x = new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(Object o) {
+            public void onResponse(JSONArray response) {
                 progressBar.setVisibility(View.INVISIBLE);
                 Snackbar.make(mainLayout, "List obtained", Snackbar.LENGTH_LONG).show();
+                setClips(new ClipsList(response));
             }
         };
 
