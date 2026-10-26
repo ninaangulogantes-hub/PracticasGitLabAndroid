@@ -5,6 +5,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -24,12 +26,14 @@ public class MainActivity extends AppCompatActivity {
     Context context = this;
     private RequestQueue queue;
     private ConstraintLayout mainLayout;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.queue = Volley.newRequestQueue(context);
         this.mainLayout = findViewById(R.id.main_layout);
+        this.progressBar = findViewById(R.id.progresBar);
 
         // Solicitamos una lista de clips
         requestClips();
@@ -65,10 +69,12 @@ public class MainActivity extends AppCompatActivity {
         this.queue.add(request);
     }
     private void requestClips() {
+        progressBar.setVisibility(View.VISIBLE);
 
         Response.Listener x = new Response.Listener() {
             @Override
             public void onResponse(Object o) {
+                progressBar.setVisibility(View.INVISIBLE);
                 Snackbar.make(mainLayout, "List obtained", Snackbar.LENGTH_LONG).show();
             }
         };
@@ -76,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         Response.ErrorListener y = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                progressBar.setVisibility(View.INVISIBLE);
                 if(volleyError.networkResponse == null) {
                     Snackbar.make(mainLayout, "Connection could not be established!", Snackbar.LENGTH_LONG).show();
                 }else{
