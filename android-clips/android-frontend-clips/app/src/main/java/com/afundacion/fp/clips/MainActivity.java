@@ -27,24 +27,29 @@ public class MainActivity extends AppCompatActivity {
 
         // Aquí lanzaremos una petición HTTP
 
-        JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.GET,
-                Server.name + "/health",
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            Toast.makeText(context,"Response OK:" + response.getString("status"), Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
+        JsonObjectRequest request = new JsonObjectRequest( Request.Method.GET, Server.name + "/health", null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Toast.makeText(context,"Response OK:" + response.getString("status"), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
 
-                    }
-                }, new Response.ErrorListener() {
+            }
+        }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                if (error.networkResponse == null) {
+                    Toast.makeText(context, "Connection could not be established!", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    // La siguiente variable contendrá el código HTTP,
+                    // por ejemplo 405, 500,...
+                    int serverCode = error.networkResponse.statusCode;
+                    Toast.makeText(context, "Server status is " + serverCode, Toast.LENGTH_SHORT).show();
+                }
             }
         }
         );
