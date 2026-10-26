@@ -1,6 +1,7 @@
 package com.afundacion.fp.clips;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,20 +11,28 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     Context context = this;
     private RequestQueue queue;
+    private ConstraintLayout mainLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.queue = Volley.newRequestQueue(context);
+        this.mainLayout = findViewById(R.id.main_layout);
+
+        // Solicitamos una lista de clips
+        requestClips();
 
         // Aquí lanzaremos una petición HTTP
 
@@ -55,5 +64,32 @@ public class MainActivity extends AppCompatActivity {
         );
         this.queue.add(request);
     }
+    private void requestClips() {
+
+        Response.Listener x = new Response.Listener() {
+            @Override
+            public void onResponse(Object o) {
+                Snackbar.make(mainLayout, "List obtained", Snackbar.LENGTH_LONG).show();
+            }
+        };
+
+        Response.ErrorListener y = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        };
+
+        JsonArrayRequest objeto = new JsonArrayRequest(
+                Request.Method.GET,
+                Server.name + "/clips",
+                null,
+                x,
+                y
+        );
+
+        this.queue.add(objeto);
+    }
+
 }
 
