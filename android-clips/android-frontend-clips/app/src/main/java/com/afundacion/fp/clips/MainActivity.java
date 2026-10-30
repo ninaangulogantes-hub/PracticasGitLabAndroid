@@ -66,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(context, "Connection could not be established!", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    // La siguiente variable contendrá el código HTTP,
-                    // por ejemplo 405, 500,...
                     int serverCode = error.networkResponse.statusCode;
                     Toast.makeText(context, "Server status is " + serverCode, Toast.LENGTH_SHORT).show();
                 }
