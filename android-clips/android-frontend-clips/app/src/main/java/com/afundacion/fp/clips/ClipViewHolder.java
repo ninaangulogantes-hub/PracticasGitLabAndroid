@@ -6,10 +6,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.BreakIterator;
+
 public class ClipViewHolder extends RecyclerView.ViewHolder{
+
+    private TextView textView;
 
     public ClipViewHolder(@NonNull View itemView) {
         super(itemView);
-        TextView textView = itemView.findViewById(R.id.textViewRecycler);
+        textView = itemView.findViewById(R.id.textViewRecycler);
+    }
+    public void bindClip(Clip clip) {
+        this.textView.setText(clip.getVideoTitle());
     }
 }

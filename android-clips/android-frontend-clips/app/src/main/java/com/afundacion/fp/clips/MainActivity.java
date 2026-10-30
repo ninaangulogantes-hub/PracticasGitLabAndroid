@@ -2,6 +2,8 @@ package com.afundacion.fp.clips;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -28,14 +30,18 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private ProgressBar progressBar;
     private ClipsList clips;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.queue = Volley.newRequestQueue(context);
         this.mainLayout = findViewById(R.id.main_layout);
         this.progressBar = findViewById(R.id.progresBar);
+        this.recyclerView = findViewById(R.id.recyclerView);
+
 
         // Solicitamos una lista de clips
         requestClips();
@@ -72,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void setClips(ClipsList clips) {
         this.clips = clips;
+        ClipsAdapter myAdapter = new ClipsAdapter(this.clips);
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public ClipsList getClipsForTest() {
@@ -80,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     private void requestClips() {
         progressBar.setVisibility(View.VISIBLE);
 
-        Response.Listener x = new Response.Listener<JSONArray>() {
+        Response.Listener<JSONArray> x = new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 progressBar.setVisibility(View.INVISIBLE);
